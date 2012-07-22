@@ -16,12 +16,11 @@ define([
     },
     render: function(){
     	var self = this;
-    	self.baseText = $('#temp_my_box').html();
+    	self.baseText = $('#my_box_template_base').html();
       self.post_template = $('#post_template').html();
 
     	var template = Mustache.render(self.baseText, self.model.toJSON());
     	$(self.el).collapse('show').empty().html(template);
-
       var i = 1;
       $("#post1").empty();
       $("#post2").empty();
@@ -35,6 +34,11 @@ define([
       });
 
       $(".timeago").timeago();
+      $(".post-comment").focus().on({keydown : function(e){
+        if(e.which == 13) {
+          self.comment_on_post(e);
+        }
+      }});
     },
 
     edit_thought : function(){
@@ -54,23 +58,44 @@ define([
 
     comment_on_thought : function(){
       var self = this;
-
       var newItem = {
         name : 'me', 
         id : self._id,
         comment : $('#thought_comment').val(),
         time : Helpers.getISOTime()
       };
-
-      var temp = Mustache.render($("#comments_template").html(), newItem);
-      console.log(newItem);
-      console.log(temp);
+      var temp = Mustache.render($("#thought_comments_template").html(), newItem);
       $("#thought_comments_wrapper").append(temp);
-
+      $("#thought_comments_wrapper .timeago").timeago();
       this.model.get('thought_comments').push(newItem);
+    },
+
+    comment_on_post : function(e){
+      var self = this;
+      var pid = $(e.target).attr('data-post-id');
+      var newItem = {
+        cid : Helpers.getGUID(),
+        name : 'me',
+        id : self._id,
+        comment : $("input[data-post-id='" + pid + "']").val(),
+        time : Helpers.getISOTime()
+      };
+
+      var _html = $("#post_comment_template").html();
+      var temp = Mustache.render(_html, newItem);
+      $(".post_comments[data-post-id='" + pid + "']").append(temp);
+      $(".post_comments[data-post-id='" + pid + "']").find('.timeago').timeago();
+      $("input[data-post-id='" + pid + "']").val('');
+
+      _.each(self.model.get('posts'), function(each){
+        if (each.pid == pid){
+          if (each.comments == ""){
+            each.comments = [];
+          }
+          each.comments.push(newItem);
+        }
+      });
     }
-
-
   });
   // Our module now returns an instantiated view
   // Sometimes you might return an un-instantiated view e.g. return mainTemplate

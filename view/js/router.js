@@ -6,6 +6,7 @@ define([
     routes: {
       // Define some URL routes
       "mybox" : "showMyBox",
+      "home" : "showHome",
       // Default
       "*actions": 'defaultAction'
     },
@@ -17,14 +18,16 @@ define([
       MyBoxView.render();
     },
 
-    defaultAction: function(){
+    showHome : function(){
       //Activate tab
-      Helpers.activeTab("[href='#']");
+      Helpers.activeTab("[href='#home']");
+      HomeView.render();
+    },
 
+    defaultAction: function(){
       setTimeout(function(){
-        HomeView.render();
+        window.location.href="#home";        
       }, 1000)
-
     }
   });
 

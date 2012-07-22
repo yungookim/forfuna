@@ -4,11 +4,11 @@ var app = module.exports = require('appjs'),
 app.serveFilesFrom('./view');  // serves files to browser requests to "http://appjs/*"
 
 var window = app.createWindow('http://appjs/', {
-  width           : 640,
-  height          : 460,
+  width           : 1100,
+  height          : 600,
   left            : -1,    // optional, -1 centers
   top             : -1,    // optional, -1 centers
-  autoResize      : true, // resizes in response to html content
+  autoResize      : false, // resizes in response to html content
   resizable       : true, // controls whether window is resizable by user
   showChrome      : true,  // show border and title bar
   opacity         : 1,     // opacity from 0 to 1 (Linux)

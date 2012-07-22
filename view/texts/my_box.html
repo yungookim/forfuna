@@ -1,102 +1,118 @@
-<!-- My Box View -->
-
-<div class="row-fluid">
-	<div class="span2">
-		<img src="http://placehold.it/150x150">
+<script type="text/template" id="my_box_template_base">
+	<!-- My Box View -->
+	<div class="row-fluid">
+		<div class="span2">
+			<img src="{{profile_pic}}">
+		</div>
+		<div class="span9">
+			<h1>{{name}}</h1>
+			<h6>{{id}}</h6>
+		</div>
 	</div>
-	<div class="span9">
-		<h1>{{name}}</h1>
-		<h6>{{id}}</h6>
-	</div>
-</div>
 
-<h1 class="pull-right" style="color:#DA4F49;font-size:2em;font-weight:bold;">{{status}}</h1>
-<hr>
-<!-- HEAD -->
-<div class="row-fluid">
-	<div class="span12 well_clone">
-		<h6>thoughts...<i id="edit_thought" class="icon-edit" style="margin-top:-2px;"></i></h6>
-		<h3 id="thoughts">{{thoughts}}</h3>
+	<h1 class="pull-right" style="color:#DA4F49;font-size:2em;font-weight:bold;">{{status}}</h1>
+	<hr>
+	<!-- HEAD -->
+	<div class="row-fluid">
+		<div class="span12 well_clone">
+			<h6>thoughts...<i id="edit_thought" class="icon-edit" style="margin-top:-2px;"></i></h6>
+			<h3 id="thoughts">{{thoughts}}</h3>
 
-		<br>
+			<br>
 
-		<div class="row-fluid">
-			<div class="span11" style="margin-left:20px;" id="thought_comments_wrapper">
-				{{#thought_comments}}
-					<div class="row-fluid">
-						<div class="span3"><a>{{name}}-{{id}}</a></div>
-						<div class="span5">{{comment}}</div>
-						<div class="span3">
-							<time class="timeago pull-right" datetime="{{time}}"></time>
+			<div class="row-fluid">
+				<div class="span11" style="margin-left:20px;" id="thought_comments_wrapper">
+					{{#thought_comments}}
+						<div class="row-fluid">
+							<div class="span3"><a>{{name}}-{{id}}</a></div>
+							<div class="span5">{{comment}}</div>
+							<div class="span3">
+								<span style="font-size:0.8em; font-color:grey;"><time class="timeago pull-right" datetime="{{time}}"></time></span>
+							</div>
 						</div>
-					</div>
-				{{/thought_comments}}
+					{{/thought_comments}}
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="row-fluid">
+				<div class="span11">
+					<input id="thought_comment" type="text" class="span12 pull-right" style="margin-left:30px;" placeholder="Enter your thoughts...">
+				</div>
+				<div class="span1">
+					<button id="thought_comment_btn" class="btn btn-warning pull-right">Comment</button>
+				</div>
 			</div>
 		</div>
+	</div>
+	<!-- HEAD END-->
 
-		<hr>
-
-		<div class="row-fluid">
-			<div class="span11">
-				<input id="thought_comment" type="text" class="span12 pull-right" style="margin-left:30px;" placeholder="Enter your thoughts...">
-			</div>
-			<div class="span1">
-				<button id="thought_comment_btn" class="btn btn-warning pull-right">Comment</button>
-			</div>
+	<!-- POST -->
+	<div class="row-fluid">
+		<div class="span1">
+			<h4>Post : </h4>
+		</div>
+		<div class="span9">
+			<input type="text" class="span12" style="margin-top:-5px;" placeholder="Your posts.">
 		</div>
 	</div>
-</div>
-<!-- HEAD END-->
+	<!-- POST END -->
 
-<!-- POST -->
-<div class="row-fluid">
-	<div class="span1">
-		<h4>Post : </h4>
+	<!-- PAST POSTS -->
+	<div class="row-fluid">
+		<div id="post1" ></div>
+		<div id="post2" ></div>
+		<div id="post3" ></div>
 	</div>
-	<div class="span9">
-		<input type="text" class="span12" style="margin-top:-5px;" placeholder="Your posts.">
-	</div>
-</div>
-<!-- POST END -->
-
-<!-- PAST POSTS -->
-<div class="row-fluid">
-	<div id="post1"></div>
-	<div id="post2"></div>
-	<div id="post3"></div>
-</div>
-<!-- PAST POSTS END -->
+	<!-- PAST POSTS END -->
+</script>
 
 <script type="text/template" id="editor_template">
 	<textarea id="thoughts_ta" class="span12" style="margin-bottom:0;"></textarea>
 	<button id="commit" class="btn pull-right" style="margin-top:-10px;">Commit</button>
 </script>
 
-
-<script type="text/template" id="comments_template">
-<div class="row-fluid">
-	<div class="span3"><a>{{name}}-{{id}}</a></div>
-	<div class="span5">{{comment}}</div>
-	<div class="span3">
-		<time class="timeago pull-right" datetime="{{time}}"></time>
+<script type="text/template" id="thought_comments_template">
+	<div class="row">
+		<div class="span3"><a>{{name}}-{{id}}</a></div>
+		<div class="span5">{{comment}}</div>
+		<div class="span3">
+			<span style="font-size:0.8em; font-color:grey;"><time class="timeago pull-right" datetime="{{time}}"></time></span>
+		</div>
 	</div>
-</div>
 </script>
 
 <script type="text/template" id="post_template">
-{{#post}}
-	<div class="span4 well_post">
-		<p>
-			<a>{{name}}-{{id}}</a>
-		</p>
-		<p>{{post}}</p>
-		<time class="timeago pull-right" datetime="{{time}}"></time>
+	{{#post}}
+		<div class="span4 well_post">
+			<p>
+				<a>{{name}}-{{id}}</a>
+			</p>
+			<p>{{post}}</p>
+			<span style="font-size:0.8em; font-color:grey;"><time class="timeago pull-right" datetime="{{time}}"></time></span>
 
-		<hr>
-
-		<div class="row-fluid">
-			<input type="text" class="span10" placeholder="Comment" style="margin-left:40px;">
+			<hr>
+			<div class="post_comments" data-post-id="{{pid}}">
+				{{#comments}}
+				<p data-cid={{cid}}>
+					<a>{{name}}-{{id}}</a>
+					{{comment}}
+					<span style="font-size:0.8em; font-color:grey;"><time class="timeago pull-right" datetime="{{time}}"></time></span>
+				</p>
+				{{/comments}}
+			</div>
+			<div class="row-fluid">
+				<input type="text" class="post-comment span10" data-post-id="{{pid}}" placeholder="Comment" style="margin-left:10px;">
+			</div>
 		</div>
-	</div>
-{{/post}}
+	{{/post}}
+</script>
+
+<script type="text/template" id="post_comment_template">
+	<p data-cid={{cid}}>
+		<a>{{name}}-{{id}}</a>
+		{{comment}}
+		<span style="font-size:0.8em; font-color:grey;"><time class="timeago pull-right" datetime="{{time}}"></time></span>
+	</p>
 </script>
