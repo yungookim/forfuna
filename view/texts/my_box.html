@@ -1,19 +1,102 @@
 <!-- My Box View -->
 
 <div class="row-fluid">
-	<div class="span12">
-		<h2>{{name}} <h6>{{id}}@{{server}}</h2></h3>
-
+	<div class="span2">
+		<img src="http://placehold.it/150x150">
+	</div>
+	<div class="span9">
+		<h1>{{name}}</h1>
+		<h6>{{id}}</h6>
 	</div>
 </div>
 
+<h1 class="pull-right" style="color:#DA4F49;font-size:2em;font-weight:bold;">{{status}}</h1>
 <hr>
-
+<!-- HEAD -->
 <div class="row-fluid">
 	<div class="span12 well_clone">
-		<h3>"{{thoughts}}"</h3>
-		<input type="text" class="span9">
-		<button class="btn btn-warning pull-right">Comment</button>
+		<h6>thoughts...<i id="edit_thought" class="icon-edit" style="margin-top:-2px;"></i></h6>
+		<h3 id="thoughts">{{thoughts}}</h3>
+
+		<br>
+
+		<div class="row-fluid">
+			<div class="span11" style="margin-left:20px;" id="thought_comments_wrapper">
+				{{#thought_comments}}
+					<div class="row-fluid">
+						<div class="span3"><a>{{name}}-{{id}}</a></div>
+						<div class="span5">{{comment}}</div>
+						<div class="span3">
+							<time class="timeago pull-right" datetime="{{time}}"></time>
+						</div>
+					</div>
+				{{/thought_comments}}
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row-fluid">
+			<div class="span11">
+				<input id="thought_comment" type="text" class="span12 pull-right" style="margin-left:30px;" placeholder="Enter your thoughts...">
+			</div>
+			<div class="span1">
+				<button id="thought_comment_btn" class="btn btn-warning pull-right">Comment</button>
+			</div>
+		</div>
 	</div>
 </div>
+<!-- HEAD END-->
 
+<!-- POST -->
+<div class="row-fluid">
+	<div class="span1">
+		<h4>Post : </h4>
+	</div>
+	<div class="span9">
+		<input type="text" class="span12" style="margin-top:-5px;" placeholder="Your posts.">
+	</div>
+</div>
+<!-- POST END -->
+
+<!-- PAST POSTS -->
+<div class="row-fluid">
+	<div id="post1"></div>
+	<div id="post2"></div>
+	<div id="post3"></div>
+</div>
+<!-- PAST POSTS END -->
+
+<script type="text/template" id="editor_template">
+	<textarea id="thoughts_ta" class="span12" style="margin-bottom:0;"></textarea>
+	<button id="commit" class="btn pull-right" style="margin-top:-10px;">Commit</button>
+</script>
+
+
+<script type="text/template" id="comments_template">
+<div class="row-fluid">
+	<div class="span3"><a>{{name}}-{{id}}</a></div>
+	<div class="span5">{{comment}}</div>
+	<div class="span3">
+		<time class="timeago pull-right" datetime="{{time}}"></time>
+	</div>
+</div>
+</script>
+
+<script type="text/template" id="post_template">
+{{#post}}
+	<div class="span4 well_post">
+		<p>
+			<a>{{name}}-{{id}}</a>
+		</p>
+		<p>{{post}}</p>
+		<time class="timeago pull-right" datetime="{{time}}"></time>
+
+		<hr>
+
+		<div class="row-fluid">
+			<input type="text" class="span10" placeholder="Comment" style="margin-left:40px;">
+		</div>
+	</div>
+{{/post}}
+</script>
