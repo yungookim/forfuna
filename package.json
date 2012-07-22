@@ -1,0 +1,8 @@
+{
+  "name": "forfuna",
+  "version": "0.0.1",
+  "main": "forfuna",
+  "dependencies": {
+  	"express": "2.5.x"
+  }
+}
