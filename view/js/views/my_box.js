@@ -6,9 +6,8 @@ define([
     _id : '',
     
     events : {
-      'click #edit_thought' : 'edit_thought',
-      'click #commit' : 'commit_thought',
-      'click #thought_comment_btn' : 'comment_on_thought'
+      'click #edit_news' : 'edit_news',
+      'click #commit' : 'commit_news'
     },
     initialize : function(){
     	this.model = new MY_BOX_MODEL();
@@ -41,33 +40,19 @@ define([
       }});
     },
 
-    edit_thought : function(){
-      $('#edit_thought').hide();
-      var _html = $('#thoughts').html().replace(/\<br\>/g, "\n");
+    edit_news : function(){
+      $('#edit_news').hide();
+      var _html = $('#news').html().replace(/\<br\>/g, "\n");
       var editor = $("#editor_template").html();
-      $('#thoughts').html(editor);
-      $('#thoughts textarea').html(_html);
+      $('#news').html(editor);
+      $('#news textarea').html(_html);
     },
 
-    commit_thought : function(){
-      $('#edit_thought').show();
-      var _html = $("#thoughts_ta").val().replace(/\n/g, "<br>");
-      $("#thoughts").empty().html(_html);
-      this.model.set('thoughts', _html);
-    },
-
-    comment_on_thought : function(){
-      var self = this;
-      var newItem = {
-        name : 'me', 
-        id : self._id,
-        comment : $('#thought_comment').val(),
-        time : Helpers.getISOTime()
-      };
-      var temp = Mustache.render($("#thought_comments_template").html(), newItem);
-      $("#thought_comments_wrapper").append(temp);
-      $("#thought_comments_wrapper .timeago").timeago();
-      this.model.get('thought_comments').push(newItem);
+    commit_news : function(){
+      $('#edit_news').show();
+      var _html = $("#news_ta").val().replace(/\n/g, "<br>");
+      $("#news").empty().html(_html);
+      this.model.set('news', _html);
     },
 
     comment_on_post : function(e){

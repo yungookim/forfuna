@@ -6,10 +6,7 @@ function(){
 			name : "danny",
 			id : "cookies!",
 			server : '168.192.0.0',
-			thoughts : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-			thought_comments : [
-				{name : 'friend', id : 'key master', comment : "Neque porro quisquam est qui", time : "2011-12-17T09:24:17Z"}
-			],
+			news : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
 			status : "Carpe Diem!",
 			profile_pic : "/img/profile.jpg",
 			posts : [
