@@ -4,7 +4,7 @@ define([
   var MyBoxView = Backbone.View.extend({
     el: $('#container'),
     _id : '',
-    
+    post_sequence : 1,
     events : {
       'click #edit_news' : 'edit_news',
       'click #commit' : 'commit_news'
@@ -20,22 +20,27 @@ define([
 
     	var template = Mustache.render(self.baseText, self.model.toJSON());
     	$(self.el).collapse('show').empty().html(template);
-      var i = 1;
+      self.post_sequence = 1;
       $("#post1").empty();
       $("#post2").empty();
       $("#post3").empty();
       _.each(self.model.get('posts'), function(each){
-        $('#post' + i).append(Mustache.render(self.post_template, {post : each}));
-        i++;
-        if (i == 4){
-          i = 1;
-        }
+        $('#post' + (self.post_sequence%4)).append(Mustache.render(self.post_template, {post : each}));
       });
 
       $(".timeago").timeago();
+      $(".collapse").collapse('show');
+
+
+      //Register key listeners
       $(".post-comment").focus().on({keydown : function(e){
         if(e.which == 13) {
           self.comment_on_post(e);
+        }
+      }});
+      $("#commit_post").focus().on({keydown : function(e){
+        if(e.which == 13) {
+          self.commit_post(e);
         }
       }});
     },
@@ -53,6 +58,30 @@ define([
       var _html = $("#news_ta").val().replace(/\n/g, "<br>");
       $("#news").empty().html(_html);
       this.model.set('news', _html);
+    },
+
+    commit_post : function(){
+      var self = this;
+      var newItem = {
+        pid : Helpers.getGUID(),
+        name :'me',
+        id : self._id,
+        post : $('#commit_post').val(),
+        time : Helpers.getISOTime(),
+        comments : []
+      };
+      var temp = Mustache.render(self.post_template, {post : newItem});
+      $('#post' + (self.post_sequence%4))
+        .append(temp);
+      $('#commit_post').val('');
+      $(".collapse[data-post-id='" + newItem.pid +  "']").collapse('show');
+      self.model.get('posts').push(newItem);
+      //Register key listeners for comment input for the new post.
+      $(".post-comment[data-post-id='" + newItem.pid +  "']").focus().on({keydown : function(e){
+        if(e.which == 13) {
+          self.comment_on_post(e);
+        }
+      }}); 
     },
 
     comment_on_post : function(e){

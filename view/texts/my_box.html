@@ -32,7 +32,7 @@
 			<h4>Post : </h4>
 		</div>
 		<div class="span9">
-			<input type="text" class="span12" style="margin-top:-5px;" placeholder="Your posts.">
+			<input id="commit_post" type="text" class="span12" style="margin-top:-5px;" placeholder="Your posts.">
 		</div>
 	</div>
 	<!-- POST END -->
@@ -63,7 +63,7 @@
 
 <script type="text/template" id="post_template">
 	{{#post}}
-		<div class="span4 well_post">
+		<div class="span4 well_post collapse" data-post-id="{{pid}}">
 			<p>
 				<a>{{name}}-{{id}}</a>
 			</p>
