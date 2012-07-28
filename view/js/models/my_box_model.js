@@ -3,6 +3,7 @@ define ([
 function(){
 	var MyBoxModel = Backbone.Model.extend({
 		defaults : {
+			//For testing purpose
 			name : "danny",
 			id : "cookies!",
 			uuid : "",
@@ -11,7 +12,7 @@ function(){
 			status : "Carpe Diem!",
 			profile_pic : "/img/profile.jpg",
 			posts : [
-				{pid: "klsldkajfkasdf",  //Post id for indexing
+				{pid: "klsldkajfkasdf",  //post id for indexing
 				name : 'me', id : 'cookies!', 
 				post : 'm in eros purus. Curabitur eleifend vulputate.', 
 				time : '2012-5-17T09:24:17Z', 
@@ -64,7 +65,9 @@ function(){
 
 		saveProfile : function(){
 			var self = this;
-			self.set('uuid', Helpers.getGUID());
+			if (self.get('uuid') == ""){
+				self.set('uuid', Helpers.getGUID());	
+			}
 			$.post('/save_profile', {data : self.toJSON()}, function(ret){
 				if (ret == 'err'){
 					//TODO : GLOBAL ERR HANLDER

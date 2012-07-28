@@ -18,12 +18,14 @@ define([
 
     	var template = Mustache.render(self.baseText, self.model.toJSON());
     	$(self.el).collapse('show').empty().html(template);
-      self.post_sequence = 1;
+      self.post_sequence = 0;
       $("#post1").empty();
       $("#post2").empty();
       $("#post3").empty();
       _.each(self.model.get('posts'), function(each){
-        $('#post' + (self.post_sequence%4)).append(Mustache.render(self.post_template, {post : each}));
+        $('#post' + (1)).prepend(Mustache.render(self.post_template, {post : each}));
+        // $('#post' + (self.post_sequence%4)).prepend(Mustache.render(self.post_template, {post : each}));
+        // self.post_sequence++;
       });
 
       $(".timeago").timeago();
@@ -69,7 +71,7 @@ define([
         comments : []
       };
       var temp = Mustache.render(self.post_template, {post : newItem});
-      $('#post' + (self.post_sequence%4)).append(temp);
+      $('#post' + (self.post_sequence%4)).prepend(temp);
       $('#commit_post').val('');
       $(".collapse[data-post-id='" + newItem.pid +  "']").collapse('show');
       $(".collapse[data-post-id='" + newItem.pid +  "']").find('.timeago').timeago();

@@ -4,7 +4,7 @@ var db = new sqlite3.Database('./data.db');
 module.exports = {
 
 	get_posts : function(fn){
-		db.all("SELECT * FROM posts", function(err, result){
+		db.all("SELECT * FROM posts ORDER BY time", function(err, result){
 			if (err) {
 				console.og(err); return;
 			}

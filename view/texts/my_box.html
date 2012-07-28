@@ -18,7 +18,7 @@
 		<br>
 		<div class="span11 well_clone">
 			<h6>News <i id="edit_news" class="icon-edit" style="margin-top:-2px;"></i></h6>
-			<h3 id="news">{{news}}</h3>
+			<h3 id="news">{{{news}}}</h3>
 		</div>
 		<br>
 	</div>
@@ -39,9 +39,9 @@
 
 	<!-- PAST POSTS -->
 	<div class="row-fluid">
-		<div id="post1" ></div>
-		<div id="post2" ></div>
-		<div id="post3" ></div>
+		<div id="post1"></div>
+		<div id="post2"></div>
+		<div id="post3"></div>
 	</div>
 	<!-- PAST POSTS END -->
 </script>
@@ -81,7 +81,7 @@
 				{{/comments}}
 			</div>
 			<div class="row-fluid">
-				<input type="text" class="post-comment span10" data-post-id="{{pid}}" placeholder="Comment" style="margin-left:10px;">
+				<input type="text" class="post-comment span10" data-post-id="{{pid}}" placeholder="Write..." style="margin-left:10px;">
 			</div>
 		</div>
 	{{/post}}
