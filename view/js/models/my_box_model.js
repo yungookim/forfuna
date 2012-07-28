@@ -11,6 +11,7 @@ function(){
 			news : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
 			status : "Carpe Diem!",
 			profile_pic : "/img/profile.jpg",
+			public_key : '',
 			posts : [
 				{pid: "klsldkajfkasdf",  //post id for indexing
 				name : 'me', id : 'cookies!', 
@@ -67,6 +68,9 @@ function(){
 			var self = this;
 			if (self.get('uuid') == ""){
 				self.set('uuid', Helpers.getGUID());	
+			}
+			if (self.get('public_key') == ""){
+				self.set('public_key', Helpers.createPublicKey());
 			}
 			$.post('/save_profile', {data : self.toJSON()}, function(ret){
 				if (ret == 'err'){

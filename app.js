@@ -1,6 +1,7 @@
 var app = module.exports = require('appjs'),
     fs = require('fs'),
-    BE = require('./backend.js');
+    BE = require('./backend.js'),
+    SYNC = require('./sync.js');
 
 app.serveFilesFrom('./view');  // serves files to browser requests to "http://appjs/*"
 
@@ -52,6 +53,7 @@ app.post('/get_profile', function(req, res){
       res.send('err');
       return;
     }
+    SYNC.push_profile(ret);
     res.send(ret);
   });
 });

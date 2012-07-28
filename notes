@@ -1,0 +1,2 @@
+run memchaced -vv for verbose option
+	-d for daemon

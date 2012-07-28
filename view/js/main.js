@@ -63,6 +63,17 @@ var Helpers = {
 		});
 	},
 
+	createPublicKey : function(){
+		var chars = this.getGUID() + this.getGUID() + this.getGUID();
+		var string_length = 64;
+		var randomstring = '';
+		for (var i=0; i<string_length; i++) {
+			var rnum = Math.floor(Math.random() * chars.length);
+			randomstring += chars.substring(rnum,rnum+1);
+		}
+		return randomstring;
+	},
+
 	err : function(msg){
 		console.log(msg);
 	}

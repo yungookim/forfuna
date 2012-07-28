@@ -10,7 +10,7 @@ CREATE TABLE user_info
 	status TEXT NOT NULL DEFAULT '',
 	profile_pic varchar(128) NOT NULL DEFAULT '/img/profile.jpg'
 );
-INSERT INTO user_info (uid, uuid, name, id, server, status) VALUES (0, '','GUBxhEHhQo', 'GUBxhEHhQo', 'GUBxhEHhQo', 'Carpe Diem!');
+INSERT INTO user_info (uid, uuid, name, id, server, status) VALUES (0, '','GUBxhEHhQo', 'GUBxhEHhQo', '23.23.188.2:3000', 'Carpe Diem!');
 
 CREATE TABLE posts
 (
