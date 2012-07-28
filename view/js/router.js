@@ -1,12 +1,14 @@
 define([
   'views/home',
-  'views/my_box'
-], function(HomeView, MyBoxView, MyBoxModel){
+  'views/my_box',
+  'views/profile'
+], function(HomeView, MyBoxView, ProfileView){
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Define some URL routes
       "mybox" : "showMyBox",
       "home" : "showHome",
+      "profile" : "showProfile",
       // Default
       "*actions": 'defaultAction'
     },
@@ -14,7 +16,6 @@ define([
     showMyBox : function(){
       //Activate tab
       Helpers.activeTab("[href='#mybox']");
-
       MyBoxView.render();
     },
 
@@ -22,6 +23,11 @@ define([
       //Activate tab
       Helpers.activeTab("[href='#home']");
       HomeView.render();
+    },
+
+    showProfile : function(){
+      Helpers.activeTab("[href='#profile']");
+      ProfileView.render();
     },
 
     defaultAction: function(){
@@ -32,9 +38,7 @@ define([
   });
 
   var init = function(){
-    var app_router = new AppRouter;
-
-    var txt = ['my_box', 'home'];
+    var txt = ['my_box', 'home', 'profile'];
     _.each(txt, function(each){
       Helpers.getText(each, function(ret){
         if (!ret){
@@ -43,7 +47,7 @@ define([
         }
       });
     });
-    //Should make this synchronous
+    var app_router = new AppRouter;
     Backbone.history.start();
   };
 

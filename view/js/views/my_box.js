@@ -31,7 +31,6 @@ define([
       $(".timeago").timeago();
       $(".collapse").collapse('show');
 
-
       //Register key listeners
       $(".post-comment").focus().on({keydown : function(e){
         if(e.which == 13) {

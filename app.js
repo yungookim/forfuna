@@ -1,5 +1,6 @@
 var app = module.exports = require('appjs'),
-  fs = require('fs');
+    fs = require('fs'),
+    BE = require('./backend.js');
 
 app.serveFilesFrom('./view');  // serves files to browser requests to "http://appjs/*"
 
@@ -29,7 +30,7 @@ window.on('ready', function(){
   this.console.log('process', process);
   this.frame.center();
   this.frame.show();
-  console.log("Window Ready");
+  //console.log("Window Ready");
 });
 
 window.on('close', function(){
@@ -38,8 +39,32 @@ window.on('close', function(){
 
 var TEXT_DIR = __dirname + "/view/texts/";
 
-app.get('/getText', function(req, res, next){
+app.get('/getText', function(req, res){
   var template = fs.readFileSync(TEXT_DIR + req.params.fn + ".html", 'utf-8');
   // console.log(template);
   res.send(template);
+});
+
+app.post('/get_profile', function(req, res){
+  BE.get_profile(function(err, ret){
+    if (err){
+      console.log(err);
+      res.send('err');
+      return;
+    }
+    res.send(ret);
+  });
+});
+
+app.post('/save_profile', function(req, res){
+  BE.save_profile(req.data, function(err, ret){
+    if (err){
+      console.log(err);
+      res.send('err');
+      return;
+    }
+    console.log(ret);
+    res.send('ok');
+  });
+
 });

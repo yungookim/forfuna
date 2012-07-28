@@ -1,0 +1,43 @@
+
+<script type="text/template" id="template_profile_base">
+	<h1>Profile</h1>
+	<hr>
+
+	<div class="alert alert-info">
+		<a class="close" data-dismiss="alert" href="#">×</a>
+		<h4 class="alert-heading">Note!</h4>
+		Everything! Even your profile is never saved on 
+		a centralized database ! <b>However</b>, this is what your friends see, so be considerate!
+
+	</div>
+
+	<div style="margin-left:30px;">
+
+		<div class="row">
+			<div class="input-prepend">
+		        <span class="add-on" style="width:50px;">Name</span>
+		        <input class="span4" id="name" size="16" type="text" value="{{name}}">
+	      </div>
+		</div>
+
+		<div class="row">
+			<div class="input-prepend">
+		        <span class="add-on" style="width:50px;">ID</span>
+		        <input class="span4" id="id" size="16" type="text" value="{{id}}">
+	      </div>
+		</div>
+
+		<div class="row">
+			<div class="input-prepend">
+		        <span class="add-on" style="width:50px;">status</span>
+		        <input class="span4" id="status" size="16" type="text" value="{{status}}">
+	      </div>
+		</div>
+
+		<button id="save" class="btn btn-info pull-right">Save</button>
+
+	</div>
+
+
+</script>
+
