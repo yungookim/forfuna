@@ -3,7 +3,6 @@ define([
 ], function(MY_BOX_MODEL){
   var MyBoxView = Backbone.View.extend({
     el: $('#container'),
-    _id : '',
     post_sequence : 1,
     events : {
       'click #edit_news' : 'edit_news',
@@ -11,7 +10,6 @@ define([
     },
     initialize : function(){
     	this.model = new MY_BOX_MODEL();
-      this._id = this.model.get('id');
     },
     render: function(){
     	var self = this;
@@ -57,6 +55,7 @@ define([
       var _html = $("#news_ta").val().replace(/\n/g, "<br>");
       $("#news").empty().html(_html);
       this.model.set('news', _html);
+      this.model.saveNews({news:_html});
     },
 
     commit_post : function(){
@@ -64,17 +63,18 @@ define([
       var newItem = {
         pid : Helpers.getGUID(),
         name :'me',
-        id : self._id,
+        id : self.model.get('id'),
         post : $('#commit_post').val(),
         time : Helpers.getISOTime(),
         comments : []
       };
       var temp = Mustache.render(self.post_template, {post : newItem});
-      $('#post' + (self.post_sequence%4))
-        .append(temp);
+      $('#post' + (self.post_sequence%4)).append(temp);
       $('#commit_post').val('');
       $(".collapse[data-post-id='" + newItem.pid +  "']").collapse('show');
+      $(".collapse[data-post-id='" + newItem.pid +  "']").find('.timeago').timeago();
       self.model.get('posts').push(newItem);
+      self.model.savePost(newItem);
       //Register key listeners for comment input for the new post.
       $(".post-comment[data-post-id='" + newItem.pid +  "']").focus().on({keydown : function(e){
         if(e.which == 13) {
@@ -89,11 +89,10 @@ define([
       var newItem = {
         cid : Helpers.getGUID(),
         name : 'me',
-        id : self._id,
+        id : self.model.get('id'),
         comment : $("input[data-post-id='" + pid + "']").val(),
         time : Helpers.getISOTime()
       };
-
       var _html = $("#post_comment_template").html();
       var temp = Mustache.render(_html, newItem);
       $(".post_comments[data-post-id='" + pid + "']").append(temp);
@@ -102,10 +101,17 @@ define([
 
       _.each(self.model.get('posts'), function(each){
         if (each.pid == pid){
+          //In case the comments is not initalized to an array type
           if (each.comments == ""){
             each.comments = [];
           }
           each.comments.push(newItem);
+          var data = {
+            pid : pid,
+            comments : JSON.stringify(each.comments)
+          };
+          self.model.saveComment(data);
+          return;
         }
       });
     }

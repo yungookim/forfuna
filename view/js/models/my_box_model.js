@@ -11,7 +11,7 @@ function(){
 			status : "Carpe Diem!",
 			profile_pic : "/img/profile.jpg",
 			posts : [
-				{pid: "klsldkajfkasdf", 
+				{pid: "klsldkajfkasdf",  //Post id for indexing
 				name : 'me', id : 'cookies!', 
 				post : 'm in eros purus. Curabitur eleifend vulputate.', 
 				time : '2012-5-17T09:24:17Z', 
@@ -24,25 +24,42 @@ function(){
 		},
 		initialize : function () {
 			var self = this;
+			//Set a global
+			window.forfuna = {};
+
+			self.set('posts', []);
 			$.post('/get_profile', function(ret){
 				if (ret == "err"){
 					//TODO : GLOBAL ERR FUNCTION HERE
 				}
 				ret = JSON.parse(ret);
-				
 				self.set('name', ret.name);
 				self.set('id', ret.id);
 				self.set('server', ret.server);
 				self.set('news', ret.news);
 				self.set('status', ret.status);
 				self.set('profile_pic', ret.profile_pic);
-				self.set('posts', ret.posts);
 
-				window.forfuna = {
-					profile : self
-				}
-
+				window.forfuna.profile = self
 			});
+
+			$.post('/get_posts', function(ret){
+				ret = JSON.parse(ret);
+				self.set('posts', []);
+				_.each(ret, function(each){
+					if (each.comments == ""){
+						each.comments = [];
+					} else {
+						each.comments = JSON.parse(each.comments);
+					}
+					self.get('posts').push(each);				
+				});
+			});
+
+			//FOR DEBUG
+			window.printModel = function(){
+				console.log(self.toJSON());
+			};
 		},
 
 		saveProfile : function(){
@@ -54,6 +71,36 @@ function(){
 					return;
 				}
 				window.location.href = '#home';
+				return;
+			});
+		},
+
+		savePost : function(newItem){
+			$.post('/save_post', newItem, function(ret){
+				if (ret == 'err'){
+					//TODO : Global ERR HANDLER
+					return;
+				}
+				return;
+			});
+		},
+
+		saveComment : function(data){
+			$.post('/save_comments', data, function(ret){
+				if (ret == 'err'){
+					//TODO : Global ERR HANDLER
+					return;
+				}
+				return;
+			});
+		},
+
+		saveNews : function(data){
+			$.post('/set_news', data, function(ret){
+				if (ret == 'err'){
+					//TODO : Global ERR HANDLER
+					return;
+				}
 				return;
 			});
 		}

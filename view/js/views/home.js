@@ -18,7 +18,7 @@ define([
         window.location.href = "#profile";
         return;
       }
-      
+
       $(self.el).collapse('show').empty().html(self.baseText).collapse('show');
     }
   });

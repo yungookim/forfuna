@@ -63,8 +63,46 @@ app.post('/save_profile', function(req, res){
       res.send('err');
       return;
     }
-    console.log(ret);
     res.send('ok');
   });
+});
 
+app.post('/save_post', function(req, res){
+  BE.save_post(req.data, function(err, ret){
+    if(err){
+      console.log(err);
+      res.send('err');
+    }
+    res.send('ok');
+  });
+});
+
+app.post('/save_comments', function(req, res){
+  BE.save_comments(req.data, function(err, ret){
+    if(err){
+      console.log(err);
+      res.send('err');
+    }
+    res.send('ok');
+  });
+});
+
+app.post('/get_posts', function(req, res){
+  BE.get_posts(function(err, ret){
+    if(err){
+      console.log(err);
+      res.send('err');
+    }
+    res.send(ret);
+  });
+});
+
+app.post('/set_news', function(req, res){
+  BE.save_news(req.data, function(err, ret){
+    if(err){
+      console.log(err);
+      res.send('err');
+    }
+    res.send(ret);
+  });
 });
