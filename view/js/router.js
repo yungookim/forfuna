@@ -38,6 +38,7 @@ define([
   });
 
   var init = function(){
+    //Load up templates
     var txt = ['my_box', 'home', 'profile'];
     _.each(txt, function(each){
       Helpers.getText(each, function(ret){
@@ -49,6 +50,14 @@ define([
     });
     var app_router = new AppRouter;
     Backbone.history.start();
+
+    //Add action listener to the friend search bar
+    $("#friend_search").focus().on({keydown : function(e){
+      if(e.which == 13) {
+        var fid = $("#friend_search").val();
+        Helpers.get_friend(fid);
+      }
+    }});
   };
 
   return {
