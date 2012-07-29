@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS user_info;
+DROP TABLE IF EXISTS posts;
+
+
 CREATE TABLE user_info
 (
 	uid int NOT NULL,

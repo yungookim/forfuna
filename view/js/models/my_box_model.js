@@ -70,12 +70,12 @@ function(){
 
 		saveProfile : function(){
 			var self = this;
-			$.post('/save_profile', {data : self.toJSON()}, function(ret){
+			$.post('/save_profile', self.toJSON(), function(ret){
 				if (ret == 'err'){
 					//TODO : GLOBAL ERR HANLDER
 					return;
 				}
-				window.location.href = '#home';
+				window.location.href = '#mybox';
 				return;
 			});
 		},
@@ -108,6 +108,21 @@ function(){
 				}
 				return;
 			});
+			this.syncProfile();
+		},
+
+		syncProfile : function(){
+			var self = this;
+			var data = {
+				name : self.get('name'),
+				id : self.get('id'),
+				uuid : self.get('uuid'),
+				news : self.get('news'),
+				status : self.get('status')
+			};
+			//TODO : This case of error, will there be another chance
+			//to sync it later?
+			$.post('/push_profile', data);
 		}
 	});
 	return MyBoxModel;
