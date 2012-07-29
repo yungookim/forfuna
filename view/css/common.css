@@ -58,11 +58,8 @@ user-select: none;
 
 .search_friend{
 	position:absolute;
-	top:5px;
+	top:-2px;
 	right:10px;
-	border-top:none 0 !important;
-	border-left:none 0  !important;
-	border-right:none 0 !important;
 }
 
 .time_nf{
@@ -91,3 +88,16 @@ input[type="text"] {
 	-o-transition: none !important;
 	transition: none !important;*/
 }
+
+.navbar-search .search-query {
+    padding-left: 29px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ5JREFUeNpi+P//PwMQMANxERCfAeI/UBrEZwbJQ9WAFR0A4u1AbAnEbFB6O1ScGaawGoi3wHQiYyBYDZKHKbwHxLo4FOqC5GEKf4Ksw6EQ5IyfIDYTkPEUiNUZsAOQ+F9GRkYJEKcFiDficSOIcRjE4QTiY0C8DuRbqAJLKP8/FP9kQArHUiA+jySJjA8w4LAS5KZd0MAHhaccQIABALsMiBZy4YLtAAAAAElFTkSuQmCC);
+    background-repeat: no-repeat;
+    background-position: 12px 8px;
+}
+
+.navbar-search .search-query:focus, .navbar-search .search-query.focused {
+    padding-left: 30px;
+    background-position: 13px 9px;
+}
+​
