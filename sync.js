@@ -22,7 +22,6 @@ module.exports = {
 
 		this.post_options.path = "/prepare_profile";
 
-
 		var req = http.request(this.post_options, function(res) {
 		  console.log('STATUS: ' + res.statusCode);
 		  console.log('HEADERS: ' + JSON.stringify(res.headers));

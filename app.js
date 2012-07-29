@@ -1,9 +1,13 @@
 var app = module.exports = require('appjs'),
     fs = require('fs'),
     BE = require('./backend.js'),
-    SYNC = require('./sync.js');
+    SYNC = require('./sync.js'),
+    crypto = require('crypto');
 
 app.serveFilesFrom('./view');  // serves files to browser requests to "http://appjs/*"
+
+var public_key = '';
+
 
 var window = app.createWindow('http://appjs/', {
   width           : 1100,
@@ -20,30 +24,28 @@ var window = app.createWindow('http://appjs/', {
 });
 
 window.on('create', function(){
-  console.log("Window Created");
-});
-
-window.on('ready', function(){
-  // fs.writeFileSync(, "Hey there!", function(err) {
-  //   if(err) {
-  //       console.log(err);
-  //   } else {
-  //       console.log("The file was saved!");
-  //   }
-  // }); 
-  var public_key = fs.readFileSync('public_key', 'utf-8');
-  console.log(process.getuid());
-  console.log(public_key);
-
-  if (public_key.length != 64){
+  public_key = fs.readFileSync('public_key', 'utf-8');
+  if (public_key.length != 128){
     //Not a vaild key, regenerate.
     //Note : Every message is synced to other users using the public key.
     //In case the public key is changed, the friends network should be 
     //notified of this and update there public key.
-    
+    var chars = getRandom() + getRandom();
+    var cipher = crypto.createCipher('aes-256-cbc','InmbuvP6Z8');
+    public_key = cipher.update(chars,'utf-8','hex');
+
+    fs.writeFile('public_key', public_key, function(err) {
+      if(err) {
+          console.log(err);
+      } else {
+          console.log("The file was saved!");
+      }
+    }); 
   }
+  console.log("Window Created");
+});
 
-
+window.on('ready', function(){
   this.require = require;
   this.process = process;
   this.module = module;
@@ -74,6 +76,7 @@ app.post('/get_profile', function(req, res){
       return;
     }
     SYNC.push_profile(ret);
+    ret.public_key = public_key;
     res.send(ret);
   });
 });
@@ -128,3 +131,10 @@ app.post('/set_news', function(req, res){
     res.send(ret);
   });
 });
+
+function getRandom(){
+  return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+      return v.toString(16);
+  });
+}

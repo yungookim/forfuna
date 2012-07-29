@@ -41,7 +41,11 @@ function(){
 				self.set('news', ret.news);
 				self.set('status', ret.status);
 				self.set('profile_pic', ret.profile_pic);
-
+				self.set('public_key', ret.public_key);
+				if (ret.uuid == undefined){
+					ret.uuid = '';
+				}
+				self.set('uuid', ret.uuid);	
 				window.forfuna.profile = self
 			});
 
