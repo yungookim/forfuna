@@ -24,6 +24,26 @@ window.on('create', function(){
 });
 
 window.on('ready', function(){
+  // fs.writeFileSync(, "Hey there!", function(err) {
+  //   if(err) {
+  //       console.log(err);
+  //   } else {
+  //       console.log("The file was saved!");
+  //   }
+  // }); 
+  var public_key = fs.readFileSync('public_key', 'utf-8');
+  console.log(process.getuid());
+  console.log(public_key);
+
+  if (public_key.length != 64){
+    //Not a vaild key, regenerate.
+    //Note : Every message is synced to other users using the public key.
+    //In case the public key is changed, the friends network should be 
+    //notified of this and update there public key.
+    
+  }
+
+
   this.require = require;
   this.process = process;
   this.module = module;
@@ -31,7 +51,7 @@ window.on('ready', function(){
   this.console.log('process', process);
   this.frame.center();
   this.frame.show();
-  //console.log("Window Ready");
+  console.log("Window Ready");
 });
 
 window.on('close', function(){
