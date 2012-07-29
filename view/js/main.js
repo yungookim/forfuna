@@ -79,7 +79,11 @@ var Helpers = {
 			}
 			var fprofile = JSON.parse(ret);
 			fprofile = JSON.parse(fprofile[fid]);
-			console.log(fprofile);
+
+			var newFriendView = window.forfuna.new_frined_box_view;
+			newFriendView.initModel(fprofile);
+			newFriendView.render();
+			window.href="#newFriend";
 		});
 	},
 

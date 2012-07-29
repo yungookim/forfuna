@@ -23,8 +23,7 @@ module.exports = {
 
 	save_profile : function(data, fn){
 		db.run("UPDATE user_info SET name=?, id=?, status=?, uuid=? where uid=0", 
-			[data['data[name]'], data['data[id]'], 
-			data['data[status]'], data['data[uuid]']],
+			[data.name, data.id, data.status, data.uuid],
 			function(err, ret){
 				if (err) {fn(err); console.log(err); return;}
 				fn(null, ret);

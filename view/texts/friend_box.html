@@ -1,0 +1,47 @@
+<script type="text/template" id="friend_box_template_base">
+	<!-- My Box View -->
+	<div class="row-fluid">
+		<div class="span2">
+			<img src="{{profile_pic}}" style="width:150px;height:150px;">
+		</div>
+		<div class="span3">
+			<h1 style="font-size:3em;color:#3A87AD;">{{name}}</h1> 
+			<span class="pull-right" style="color:#999;font-size:2em;">'{{id}}@{{uuid}}'</span>
+		</div>
+		<div class="span6">
+			<h1 class="pull-right" style="color:#DA4F49;font-size:2em;font-weight:bold;">"{{status}}"</h1>
+		</div>
+	</div>
+	
+	<!-- HEAD -->
+	<div class="row-fluid">
+		<br>
+		<div class="span11 well_clone">
+			<h6>News <i id="edit_news" class="icon-edit" style="margin-top:-2px;"></i></h6>
+			<h3 id="news">{{{news}}}</h3>
+		</div>
+		<br>
+	</div>
+	<!-- HEAD END-->
+
+	<hr>
+
+	<!-- POST -->
+	<div class="row-fluid">
+		<div class="span1">
+			<h4>Post : </h4>
+		</div>
+		<div class="span9">
+			<input id="commit_post" type="text" class="span12" style="margin-top:-5px;" placeholder="Your posts.">
+		</div>
+	</div>
+	<!-- POST END -->
+
+	<!-- PAST POSTS -->
+	<div class="row-fluid">
+		<div id="post1"></div>
+		<div id="post2"></div>
+		<div id="post3"></div>
+	</div>
+	<!-- PAST POSTS END -->
+</script>
