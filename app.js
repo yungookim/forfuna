@@ -97,6 +97,7 @@ app.post('/save_post', function(req, res){
     if(err){
       console.log(err);
       res.send('err');
+      return;
     }
     res.send('ok');
   });
@@ -107,6 +108,7 @@ app.post('/save_comments', function(req, res){
     if(err){
       console.log(err);
       res.send('err');
+      return;
     }
     res.send('ok');
   });
@@ -117,6 +119,7 @@ app.post('/get_posts', function(req, res){
     if(err){
       console.log(err);
       res.send('err');
+      return;
     }
     res.send(ret);
   });
@@ -127,10 +130,23 @@ app.post('/set_news', function(req, res){
     if(err){
       console.log(err);
       res.send('err');
+      return;
     }
     res.send(ret);
   });
 });
+
+app.post('/get_friend', function(req, res){
+  SYNC.get_friend(req.data, function(err, ret){
+    if(err){
+      console.log(err);
+      res.send('err');
+      return;
+    }
+    res.send(ret);
+  });
+});
+
 
 function getRandom(){
   return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

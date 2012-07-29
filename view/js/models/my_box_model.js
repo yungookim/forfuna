@@ -42,8 +42,8 @@ function(){
 				self.set('status', ret.status);
 				self.set('profile_pic', ret.profile_pic);
 				self.set('public_key', ret.public_key);
-				if (ret.uuid == undefined){
-					ret.uuid = '';
+				if (ret.uuid == undefined || ret.uuid == ''){
+					ret.uuid = Helpers.getRandomString(3);
 				}
 				self.set('uuid', ret.uuid);	
 				window.forfuna.profile = self
@@ -70,12 +70,6 @@ function(){
 
 		saveProfile : function(){
 			var self = this;
-			if (self.get('uuid') == ""){
-				self.set('uuid', Helpers.getGUID());	
-			}
-			if (self.get('public_key') == ""){
-				self.set('public_key', Helpers.createPublicKey());
-			}
 			$.post('/save_profile', {data : self.toJSON()}, function(ret){
 				if (ret == 'err'){
 					//TODO : GLOBAL ERR HANLDER

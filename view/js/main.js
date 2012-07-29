@@ -14,8 +14,8 @@ requirejs([
 
 //Global helpers
 
-//Requirejs's text module doesn't play well with appjs. Rewrite text module.
 var Helpers = {
+	//Requirejs's text module doesn't play well with appjs. Rewrite a simple text module.
 	//Load in template and leave it on the index.html as a template script
 	getText : function(name, next){
 		$.ajax({
@@ -28,10 +28,8 @@ var Helpers = {
 				next();
 				return;
 			}
-
 			if (typeof text == 'object'){
 				window.ASDF = text;
-				// text = text[0];
 				// console.log(text);
 			}
 			var tmp = $('<script type="text/template" id="temp_' + name + '"></script>').html(text);
@@ -63,15 +61,26 @@ var Helpers = {
 		});
 	},
 
-	createPublicKey : function(){
-		var chars = this.getGUID() + this.getGUID() + this.getGUID();
-		var string_length = 64;
+	getRandomString : function(length){
+		var chars = "ABCDEFGHIJKLMNOPQRSTUVWYZ123456780";
+		var string_length = length;
 		var randomstring = '';
 		for (var i=0; i<string_length; i++) {
 			var rnum = Math.floor(Math.random() * chars.length);
 			randomstring += chars.substring(rnum,rnum+1);
 		}
 		return randomstring;
+	},
+
+	get_friend : function(fid){
+		$.post('/get_friend', {id : fid}, function(ret){
+			if (ret == 'err'){
+				//TODO GLOBAL ERR HANDLER
+			}
+			var fprofile = JSON.parse(ret);
+			fprofile = JSON.parse(fprofile[fid]);
+			console.log(fprofile);
+		});
 	},
 
 	err : function(msg){
