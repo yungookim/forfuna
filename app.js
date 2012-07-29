@@ -88,6 +88,7 @@ app.post('/save_profile', function(req, res){
       res.send('err');
       return;
     }
+    SYNC.push_profile(req.data);
     res.send('ok');
   });
 });
@@ -147,6 +148,10 @@ app.post('/get_friend', function(req, res){
   });
 });
 
+app.post('/push_profile', function(req, res){
+  SYNC.push_profile(req.data);
+  res.send('');
+});
 
 function getRandom(){
   return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

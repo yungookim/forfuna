@@ -1,14 +1,17 @@
 define([
   'views/home',
   'views/my_box',
-  'views/profile'
-], function(HomeView, MyBoxView, ProfileView){
+  'views/profile',
+  'views/friend_box',
+  'collections/friend_list'
+], function(HomeView, MyBoxView, ProfileView, FriendBoxView, FriendCollection){
   var AppRouter = Backbone.Router.extend({
     routes: {
       // Define some URL routes
       "mybox" : "showMyBox",
       "home" : "showHome",
       "profile" : "showProfile",
+      "newFriend" : "showNewFriend",
       // Default
       "*actions": 'defaultAction'
     },
@@ -30,6 +33,10 @@ define([
       ProfileView.render();
     },
 
+    showNewFriend : function(){
+      //Don't do anything. Helpers will take care of it
+    },
+
     defaultAction: function(){
       setTimeout(function(){
         window.location.href="#home";        
@@ -39,7 +46,7 @@ define([
 
   var init = function(){
     //Load up templates
-    var txt = ['my_box', 'home', 'profile'];
+    var txt = ['my_box', 'home', 'profile', 'friend_box'];
     _.each(txt, function(each){
       Helpers.getText(each, function(ret){
         if (!ret){
@@ -50,6 +57,12 @@ define([
     });
     var app_router = new AppRouter;
     Backbone.history.start();
+    //Initalize friend collection
+    window.forfuna.friend_collection = new FriendCollection();
+    //Add friend_box_view to global so adding new friend can be done
+    //in any views
+    window.forfuna.new_frined_box_view = FriendBoxView;
+
 
     //Add action listener to the friend search bar
     $("#friend_search").focus().on({keydown : function(e){

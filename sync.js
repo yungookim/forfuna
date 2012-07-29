@@ -4,9 +4,9 @@
 var http = require('http');
 
 module.exports = {
-	serverip : '',
+	serverip : "23.23.188.2",
 	post_options : {  
-	  host: "",
+	  host: "23.23.188.2",
 	  path : "",
 	  port: 3000,
 	  method: 'POST',
@@ -16,12 +16,7 @@ module.exports = {
 	},
 
 	push_profile : function(data){
-		//setting server info below guarantees post_options 
-		//initialized from the execution of the app
-		this.serverip = data.server;
 		data.public_key = "";
-		this.post_options.host = this.serverip;
-
 
 		this.post_options.path = "/prepare_profile";
 
@@ -36,6 +31,8 @@ module.exports = {
 		req.on('error', function(e) {
 		  console.log('problem with request: ' + e.message);
 		});
+
+		console.log(data);
 
 		// write data to request body
 		req.write(JSON.stringify(data));
