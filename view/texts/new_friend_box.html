@@ -1,0 +1,37 @@
+<script type="text/template" id="new_friend_box_template_base">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>Summary</h3>
+	</div>
+	<div class="modal-body">
+		<!-- My Box View -->
+		<div class="row-fluid">
+			<div class="span4">
+				<img src="{{profile_pic}}" style="width:150px;height:150px;">
+			</div>
+			<div class="span8">
+				<h1 style="font-size:3em;color:#3A87AD;">{{name}}</h1> 
+				<span style="margin-left:50px;color:#999;font-size:2em;">{{id}}@{{uuid}}</span>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<h1 style="color:#DA4F49;font-size:2em;font-weight:bold;">"{{status}}"</h1>
+			</div>
+		</div>
+
+		<!-- HEAD -->
+		<div class="row-fluid">
+			<div class="span11 well_clone">
+				<h6>News</h6>
+				<h3>{{{news}}}</h3>
+			</div>
+			<br>
+		</div>
+		<!-- HEAD END-->
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a href="#" class="btn btn-primary">Request Friend</a>
+	</div>
+</script>

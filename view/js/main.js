@@ -72,8 +72,8 @@ var Helpers = {
 		return randomstring;
 	},
 
-	get_friend : function(fid){
-		$.post('/get_friend', {id : fid}, function(ret){
+	get_new_friend : function(fid){
+		$.post('/get_new_friend', {id : fid}, function(ret){
 			if (ret == 'err'){
 				//TODO GLOBAL ERR HANDLER
 			}

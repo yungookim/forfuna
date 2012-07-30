@@ -137,7 +137,7 @@ app.post('/set_news', function(req, res){
   });
 });
 
-app.post('/get_friend', function(req, res){
+app.post('/get_new_friend', function(req, res){
   SYNC.get_friend(req.data, function(err, ret){
     if(err){
       console.log(err);
