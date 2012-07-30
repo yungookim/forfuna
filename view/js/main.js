@@ -76,6 +76,7 @@ var Helpers = {
 		$.post('/get_new_friend', {id : fid}, function(ret){
 			if (ret == 'err'){
 				//TODO GLOBAL ERR HANDLER
+				return;
 			}
 			var fprofile = JSON.parse(ret);
 			fprofile = JSON.parse(fprofile[fid]);

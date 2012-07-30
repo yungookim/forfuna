@@ -66,6 +66,7 @@ define([
 
     //Initialize global modal.
     $('#modal').modal({show:false, keyboard:true});
+    
     //Add action listener to the friend search bar
     $("#friend_search").focus().on({keydown : function(e){
       if(e.which == 13) {
@@ -73,6 +74,7 @@ define([
         Helpers.get_new_friend(fid);
       }
     }});
+
   };
 
   return {

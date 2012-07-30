@@ -4,6 +4,7 @@
   "main": "forfuna",
   "dependencies": {
   	"express": "2.5.x",
-  	"sqlite3" : "2.1.x"
+  	"sqlite3" : "2.1.x",
+  	"socket.io" : "0.9.x"
   }
 }

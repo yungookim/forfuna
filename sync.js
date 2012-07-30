@@ -37,10 +37,11 @@ module.exports = {
 		// write data to request body
 		req.write(JSON.stringify(data));
 		req.end();
+		this.post_options.path = '';
 	},
 
 	get_friend : function(data, fn){
-		this.post_options.path = "/get_friend";
+		this.post_options.path = "/get_friend_info";
 
 		var req = http.request(this.post_options, function(res) {
 		  console.log('STATUS: ' + res.statusCode);
@@ -52,10 +53,34 @@ module.exports = {
 		});
 		req.on('error', function(e) {
 		  console.log('problem with request: ' + e.message);
+		  fn(e.message);
 		});
 
 		// write data to request body
 		req.write(data.id);
 		req.end();
+		this.post_options.path = '';
+	},
+
+	request_friend : function(data, fn){
+		this.post_options.path = "/request_friend";
+
+		var req = http.request(this.post_options, function(res) {
+		  console.log('STATUS: ' + res.statusCode);
+		  console.log('HEADERS: ' + JSON.stringify(res.headers));
+		  res.setEncoding('utf8');
+		  res.on('data', function (chunk) {
+		    fn(null, chunk);
+		  });
+		});
+		req.on('error', function(e) {
+		  console.log('problem with request: ' + e.message);
+		  fn(e.message);
+		});
+
+		// write data to request body
+		req.write(JSON.stringify(data));
+		req.end();
+		this.post_options.path = '';
 	}
 }

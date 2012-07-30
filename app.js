@@ -153,6 +153,16 @@ app.post('/push_profile', function(req, res){
   res.send('');
 });
 
+app.post('/request_friend', function(req, res){
+  SYNC.request_friend(req.data, function(err, ret){
+    if (err){
+      console.log(err);
+      res.send('err');
+    }
+    res.send('ok');
+  });
+});
+
 function getRandom(){
   return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
