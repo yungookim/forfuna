@@ -11,7 +11,7 @@ module.exports = {
 	  port: 3000,
 	  method: 'POST',
 	  headers: {  
-		    'Content-Type': 'application/x-www-form-urlencoded'
+		    'Content-Type': 'application/json'
 		}
 	},
 
@@ -63,9 +63,20 @@ module.exports = {
 	},
 
 	request_friend : function(data, fn){
-		this.post_options.path = "/request_friend";
+		var headers = {
+			'Content-Type': 'application/json',
+			'Content-Length': JSON.stringify(data).length
+		};
 
-		var req = http.request(this.post_options, function(res) {
+		var options = {
+			host: "23.23.188.2",
+			port: 3000,
+			path: '/request_friend',
+			method: 'POST',
+			headers: headers
+		};
+
+		var req = http.request(options, function(res) {
 		  console.log('STATUS: ' + res.statusCode);
 		  console.log('HEADERS: ' + JSON.stringify(res.headers));
 		  res.setEncoding('utf8');
@@ -81,6 +92,5 @@ module.exports = {
 		// write data to request body
 		req.write(JSON.stringify(data));
 		req.end();
-		this.post_options.path = '';
 	}
 }

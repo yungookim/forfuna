@@ -66,7 +66,6 @@ define([
 
     //Initialize global modal.
     $('#modal').modal({show:false, keyboard:true});
-    
     //Add action listener to the friend search bar
     $("#friend_search").focus().on({keydown : function(e){
       if(e.which == 13) {
@@ -74,6 +73,14 @@ define([
         Helpers.get_new_friend(fid);
       }
     }});
+
+    // //Initalize websocket connection. (Seems like appjs doesn't support this)
+    // var socket = io.connect('http://23.23.188.2:3002');
+    // socket.on('news', function (data) {
+    //   console.log(data);
+    //   socket.emit('foo', { my: 'data' });
+    // });
+
 
   };
 

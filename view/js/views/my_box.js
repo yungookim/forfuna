@@ -71,7 +71,7 @@ define([
         comments : []
       };
       var temp = Mustache.render(self.post_template, {post : newItem});
-      $('#post' + (self.post_sequence%4)).prepend(temp);
+      $('#post' + (1)).prepend(temp);
       $('#commit_post').val('');
       $(".collapse[data-post-id='" + newItem.pid +  "']").collapse('show');
       $(".collapse[data-post-id='" + newItem.pid +  "']").find('.timeago').timeago();
