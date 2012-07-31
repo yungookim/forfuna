@@ -162,6 +162,7 @@ app.post('/request_friend', function(req, res){
     if (err){
       console.log(err);
       res.send('err');
+      return;
     }
     res.send('ok');
   });
@@ -172,6 +173,7 @@ app.post('/get_updates', function(req, res){
     if (err){
       console.log(err);
       res.send('err');
+      return;
     }
     res.send(ret);
     //Remove the fetched object from cache

@@ -47,7 +47,8 @@ define([
 
   var init = function(){
     //Load up templates
-    var txt = ['my_box', 'home', 'profile', 'friend_box', 'new_friend_box'];
+    var txt = ['my_box', 'home', 'profile', 'friend_box', 
+              'new_friend_box', 'friend_request'];
     _.each(txt, function(each){
       Helpers.getText(each, function(ret){
         if (!ret){

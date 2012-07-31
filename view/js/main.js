@@ -89,7 +89,6 @@ var Helpers = {
 	},
 
 	get_updates : function() {
-		console.log('getting updates');
 		var data = {
 			id : window.forfuna.profile.get('id'),
 			uuid : window.forfuna.profile.get('uuid')
@@ -99,7 +98,24 @@ var Helpers = {
 				//TODO GLOBAL ERR HANDLER
 				return;
 			}
-			console.log(JSON.parse(ret));
+
+			ret = JSON.parse(ret);
+			for (i in ret){
+				var obj = JSON.parse(ret[i]);
+			}
+
+			ret.request = {};
+			ret.request.id = obj['requested[id]'];
+			ret.request.message = obj['requested[message]'];
+			ret.request.name = obj['requested[name]'];
+			ret.request.news = obj['requested[news]'];
+			ret.request.public_key = obj['requested[public_key]'];
+			ret.request.status = obj['requested[status]'];
+			ret.request.uuid = obj['requested[uuid]'];
+			console.log(ret.request);
+			var template = Mustache.render($("#friend_request_modal_template_base").html(),
+			 	ret.request);
+			$('#modal').empty().html(template).modal('show');;
 		});
 	},
 
