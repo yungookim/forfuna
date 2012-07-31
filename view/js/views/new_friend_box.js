@@ -32,11 +32,13 @@ define([
         id : window.forfuna.profile.get('id'),
         uuid : window.forfuna.profile.get('uuid'),
         news : window.forfuna.profile.get('news'),
-        status : window.forfuna.profile.get('status')
+        status : window.forfuna.profile.get('status'),
+        public_key : window.forfuna.profile.get('public_key'),
+        message : $('#friend_request_message').val()
       }
 
       $(self.el).modal('toggle');
-      $.post('/request_friend', JSON.stringify(data),function(ret){
+      $.post('/request_friend', data, function(ret){
         if (ret == "err"){
           //GLOBAL ERR HANDLER
           return;

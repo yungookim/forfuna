@@ -47,6 +47,11 @@ function(){
 				}
 				self.set('uuid', ret.uuid);	
 				window.forfuna.profile = self
+
+				//At every given seconds, check for updates.
+    			setInterval(Helpers.get_updates(), 1000);
+
+
 			});
 
 			$.post('/get_posts', function(ret){

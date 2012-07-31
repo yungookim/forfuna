@@ -40,8 +40,16 @@ module.exports = {
 		this.post_options.path = '';
 	},
 
-	get_friend : function(data, fn){
+	get_new_friend : function(data, fn){
+
+		data = JSON.stringify({fid : data.id});
+
 		this.post_options.path = "/get_friend_info";
+		var headers = {
+			'Content-Type': 'application/json',
+			'Content-Length': data.length
+		};
+		this.post_options.headers = headers;
 
 		var req = http.request(this.post_options, function(res) {
 		  console.log('STATUS: ' + res.statusCode);
@@ -57,26 +65,48 @@ module.exports = {
 		});
 
 		// write data to request body
-		req.write(data.id);
+		req.write(data);
 		req.end();
 		this.post_options.path = '';
 	},
 
 	request_friend : function(data, fn){
+		this.post_options.path = '/request_friend';
+
+		var headers = {
+			'Content-Type': 'application/json',
+			'Content-Length': JSON.stringify(data).length
+		};
+		console.log(data);
+		this.post_options.headers = headers;
+
+		var req = createHttp(this.post_options, fn);
+
+		// write data to request body
+		req.write(JSON.stringify(data));
+		req.end();
+	},
+
+	get_updates : function(data, fn){
+		this.post_options.path = '/get_updates';
+
+		console.log('getting updates');
+
 		var headers = {
 			'Content-Type': 'application/json',
 			'Content-Length': JSON.stringify(data).length
 		};
 
-		var options = {
-			host: "23.23.188.2",
-			port: 3000,
-			path: '/request_friend',
-			method: 'POST',
-			headers: headers
-		};
+		this.post_options.headers = headers;
 
-		var req = http.request(options, function(res) {
+		var req = createHttp(this.post_options, fn);
+		req.write(JSON.stringify(data));
+		req.end();
+	}
+}
+
+function createHttp(options, fn){
+	return http.request(options, function(res) {
 		  console.log('STATUS: ' + res.statusCode);
 		  console.log('HEADERS: ' + JSON.stringify(res.headers));
 		  res.setEncoding('utf8');
@@ -88,9 +118,4 @@ module.exports = {
 		  console.log('problem with request: ' + e.message);
 		  fn(e.message);
 		});
-
-		// write data to request body
-		req.write(JSON.stringify(data));
-		req.end();
-	}
 }

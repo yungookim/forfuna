@@ -88,6 +88,21 @@ var Helpers = {
 		});
 	},
 
+	get_updates : function() {
+		console.log('getting updates');
+		var data = {
+			id : window.forfuna.profile.get('id'),
+			uuid : window.forfuna.profile.get('uuid')
+		};
+		$.post('/get_updates', data, function(ret){
+			if (ret == 'err'){
+				//TODO GLOBAL ERR HANDLER
+				return;
+			}
+			console.log(ret);
+		});
+	},
+
 	err : function(msg){
 		console.log(msg);
 	}

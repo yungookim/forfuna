@@ -138,7 +138,7 @@ app.post('/set_news', function(req, res){
 });
 
 app.post('/get_new_friend', function(req, res){
-  SYNC.get_friend(req.data, function(err, ret){
+  SYNC.get_new_friend(req.data, function(err, ret){
     if(err){
       console.log(err);
       res.send('err');
@@ -160,6 +160,16 @@ app.post('/request_friend', function(req, res){
       res.send('err');
     }
     res.send('ok');
+  });
+});
+
+app.post('/get_updates', function(req, res){
+  SYNC.get_updates(req.data, function(err, ret){
+    if (err){
+      console.log(err);
+      res.send('err');
+    }
+    res.send(ret);
   });
 });
 
