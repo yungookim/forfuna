@@ -72,46 +72,69 @@ module.exports = {
 
 	request_friend : function(data, fn){
 		this.post_options.path = '/request_friend';
-
-		var headers = {
-			'Content-Type': 'application/json',
-			'Content-Length': JSON.stringify(data).length
-		};
-		console.log(data);
-		this.post_options.headers = headers;
-
-		var req = createHttp(this.post_options, fn);
+		var req = createHttp(this.post_options, JSON.stringify(data).length,fn);
 
 		// write data to request body
 		req.write(JSON.stringify(data));
 		req.end();
+		this.post_options.path = '';
 	},
 
 	get_updates : function(data, fn){
 		this.post_options.path = '/get_updates';
 
-		console.log('getting updates');
-
-		var headers = {
-			'Content-Type': 'application/json',
-			'Content-Length': JSON.stringify(data).length
-		};
-
-		this.post_options.headers = headers;
-
-		var req = createHttp(this.post_options, fn);
+		var req = createHttp(this.post_options, JSON.stringify(data).length, fn);
 		req.write(JSON.stringify(data));
 		req.end();
+		this.post_options.path = '';
+	},
+
+	remove : function(data){
+		this.post_options.path = '/remove';
+		var tdata = JSON.parse(data);
+		var id, uuid;
+		for (k in tdata){
+			tdata[k] = JSON.parse(tdata[k]);
+			for (i in tdata[k]){
+				if (i == 'id'){
+					id = tdata[k][i];
+				}
+				if (i == 'uuid'){
+					uuid = tdata[k][i];
+				}
+			}
+		}
+		var _data = {
+			length : data.length,
+			id : id,
+			uuid : uuid
+		};
+
+		_data = JSON.stringify(_data);
+		console.log(_data);
+		var length = _data.length;
+		var req = createHttp(this.post_options, length, null);
+		
+		req.write(_data);
+		req.end();
+		this.post_options.path = '';
 	}
 }
 
-function createHttp(options, fn){
+function createHttp(options, length, fn){
+	var headers = {
+			'Content-Type': 'application/json',
+			'Content-Length': length
+		};
+	options.headers = headers;
 	return http.request(options, function(res) {
 		  console.log('STATUS: ' + res.statusCode);
 		  console.log('HEADERS: ' + JSON.stringify(res.headers));
 		  res.setEncoding('utf8');
 		  res.on('data', function (chunk) {
-		    fn(null, chunk);
+		  	if (fn){
+		  		fn(null, chunk);
+		  	}
 		  });
 		});
 		req.on('error', function(e) {

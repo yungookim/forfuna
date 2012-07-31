@@ -49,8 +49,7 @@ function(){
 				window.forfuna.profile = self
 
 				//At every given seconds, check for updates.
-    			setInterval(Helpers.get_updates(), 1000);
-
+    			setInterval(Helpers.get_updates, 10000);
 
 			});
 

@@ -8,7 +8,6 @@ app.serveFilesFrom('./view');  // serves files to browser requests to "http://ap
 
 var public_key = '';
 
-
 var window = app.createWindow('http://appjs/', {
   width           : 1100,
   height          : 600,
@@ -61,6 +60,11 @@ window.on('close', function(){
 });
 
 var TEXT_DIR = __dirname + "/view/texts/";
+
+// //Exception handling
+// process.on('uncaughtException', function (err) {
+//   console.log('Caught exception: ' + err);
+// });
 
 app.get('/getText', function(req, res){
   var template = fs.readFileSync(TEXT_DIR + req.params.fn + ".html", 'utf-8');
@@ -170,6 +174,8 @@ app.post('/get_updates', function(req, res){
       res.send('err');
     }
     res.send(ret);
+    //Remove the fetched object from cache
+    SYNC.remove(ret);
   });
 });
 

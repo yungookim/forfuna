@@ -99,7 +99,7 @@ var Helpers = {
 				//TODO GLOBAL ERR HANDLER
 				return;
 			}
-			console.log(ret);
+			console.log(JSON.parse(ret));
 		});
 	},
 
