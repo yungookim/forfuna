@@ -13,7 +13,6 @@ requirejs([
 );
 
 //Global helpers
-
 var Helpers = {
 	//Requirejs's text module doesn't play well with appjs. Rewrite a simple text module.
 	//Load in template and leave it on the index.html as a template script
@@ -112,7 +111,6 @@ var Helpers = {
 			ret.request.public_key = obj['requested[public_key]'];
 			ret.request.status = obj['requested[status]'];
 			ret.request.uuid = obj['requested[uuid]'];
-			console.log(ret.request);
 			var template = Mustache.render($("#friend_request_modal_template_base").html(),
 			 	ret.request);
 			$('#modal').empty().html(template).modal('show');;
